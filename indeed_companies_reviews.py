@@ -19,3 +19,33 @@ style.use("fivethirtyeight")
 # Reading the dataset 
 df = pd.read_csv('indeed_reviews.csv' ,delimiter='~')
 df.head(2)
+
+# *******************
+df=df[['title','review','employee_position','employee_state','city','state','date_review','rating']]
+df.head(2)
+
+# ******************
+df.info()
+
+# ***************
+sns.countplot(df['rating'])
+
+# *****************
+# *1. Text Preprocessing*
+# Normalizing Case Folding
+df['review'] = df['review'].str.lower()
+
+# Punctuations
+df['review'] = df['review'].str.replace('[^\w\s]', '')
+
+# Numbers
+df['review'] = df['review'].str.replace('\d', '')
+
+
+
+
+
+
+
+
+
