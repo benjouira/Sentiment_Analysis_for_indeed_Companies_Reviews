@@ -15,3 +15,7 @@ from matplotlib import style
 style.use("fivethirtyeight")
 
 # ******************
+
+# Reading the dataset 
+df = pd.read_csv('indeed_reviews.csv' ,delimiter='~')
+df.head(2)
