@@ -42,7 +42,12 @@ df['review'] = df['review'].str.replace('[^\w\s]', '')
 df['review'] = df['review'].str.replace('\d', '')
 
 
-
+# spelling correction
+def orth_corr(text):
+    try:
+        return TextBlob(text).correct()
+    except:
+        return None
 
 
 
