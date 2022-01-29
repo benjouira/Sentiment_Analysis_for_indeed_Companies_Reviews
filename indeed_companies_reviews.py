@@ -61,5 +61,8 @@ drops
 # delete Rare Words
 df['new_review'] = df['new_review'].apply(lambda x: " ".join(y for y in x.split() if y not in drops))
 
+# Lemmatization
 
+lemmatizer = WordNetLemmatizer()
+df['new_review'] = df['new_review'].apply(lambda x: " ".join([word.lemma_ for word in nlp(x)]))
 
