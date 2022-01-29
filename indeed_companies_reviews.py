@@ -53,9 +53,13 @@ def orth_corr(text):
 sw = stopwords.words('english')
 df['new_review'] = df['new_review'].apply(lambda x: " ".join(x for x in str(x).split() if x not in sw))
 
+# detecting Rare Words
+drops = pd.Series(' '.join(df['new_review']).split()).value_counts() 
+drops = drops [drops < 3]
+drops
 
-
-
+# delete Rare Words
+df['new_review'] = df['new_review'].apply(lambda x: " ".join(y for y in x.split() if y not in drops))
 
 
 
