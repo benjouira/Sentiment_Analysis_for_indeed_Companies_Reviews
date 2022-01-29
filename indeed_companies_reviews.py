@@ -49,6 +49,11 @@ def orth_corr(text):
     except:
         return None
 
+# Stopwords remove
+sw = stopwords.words('english')
+df['new_review'] = df['new_review'].apply(lambda x: " ".join(x for x in str(x).split() if x not in sw))
+
+
 
 
 
