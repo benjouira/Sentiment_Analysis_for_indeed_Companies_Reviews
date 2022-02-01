@@ -66,3 +66,11 @@ df['new_review'] = df['new_review'].apply(lambda x: " ".join(y for y in x.split(
 lemmatizer = WordNetLemmatizer()
 df['new_review'] = df['new_review'].apply(lambda x: " ".join([word.lemma_ for word in nlp(x)]))
 
+
+# Term Frequencies
+
+tf = pd.DataFrame(' '.join(df['new_review']).split()).value_counts() 
+
+tf.describe()
+
+
