@@ -86,4 +86,87 @@ plt.axis("off")
 plt.show()
 
 
+# 3. Sentiment Analysis
+
+# NLTK already has a built-in sentiment analyzer model called 'VADER'
+vader = SentimentIntensityAnalyzer()
+
+# calculate the scores,for example, of the 10 first reviews
+df["new_review"][:10].apply(lambda x: vader.polarity_scores(x)).values
+
+# *****************************************************************
+# SentimentIntensityAnalyzer() is an object and polarity_scores is a method which will  give us scores of the following categories:
+#     Positive
+#     Negative
+#     Neutral
+#     Compound
+
+# The compound score is the sum of positive, negative & neutral scores which is then normalized between -1(most extreme negative) and +1 (most extreme positive).
+
+# The more Compound score closer to +1, the higher the positivity of the text.
+# ****************************************
+
+
+# let's add the compound score foreach reviews
+df["polarity_score"] = df["new_review"].apply(lambda x: vader.polarity_scores(x)["compound"])
+df.head(2)
+
+
+# 4. Sentiment Modeling
+
+# Feature Engineering
+
+# creating Target from polarity
+df["polarity_label"] = df["polarity_score"].apply(lambda x: "pos" if x > 0.6 else "neg" if x < 0 else "neu")
+df.head(2)
+
+# let's check if we have unbalanced data problem let's look at a target value count
+sns.countplot(df['polarity_label'])
+
+# encoding the new target
+df["polarity_label"] = LabelEncoder().fit_transform(df["polarity_label"])
+x = df["new_review"]
+y_polarity = df["polarity_label"]
+y_raiting = df["rating"]
+
+# TF-IDF
+
+# word tf-idf
+tf_idf_vectorizer = TfidfVectorizer()
+x_tf_idf = tf_idf_vectorizer.fit_transform(x)
+
+
+# 5. Modeling
+
+# Logistic Regression
+
+# training my model with polarity target
+model_with_polarity = LogisticRegression().fit(x_tf_idf, y_polarity)
+
+# for better result runinig my model with 5 different fold  
+cross_val_score(model_with_polarity, x_tf_idf, y_polarity, scoring="accuracy", cv=5).mean()
+
+
+# evaluate my model 
+
+test1 = pd.Series("this product is great")
+test2 = pd.Series("look at that shit very bad")
+test3 = pd.Series("it's normal")
+
+res_test1 = CountVectorizer().fit(x).transform(test1)
+res_test2 = CountVectorizer().fit(x).transform(test2)
+res_test3 = CountVectorizer().fit(x).transform(test3)
+
+print("sentence 1 : ",model_with_polarity.predict(res_test1))
+print("sentence 2 : ",model_with_polarity.predict(res_test2))
+print("sentence 3 : ",model_with_polarity.predict(res_test3))
+
+
+
+# training my model with rating target
+model_with_rating = LogisticRegression().fit(x_tf_idf, y_raiting)
+
+# for better result runinig my model with 5 different fold  
+cross_val_score(model_with_rating, x_tf_idf, y_raiting, scoring="accuracy", cv=5).mean()
+
 
