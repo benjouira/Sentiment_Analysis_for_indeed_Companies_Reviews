@@ -169,4 +169,24 @@ model_with_rating = LogisticRegression().fit(x_tf_idf, y_raiting)
 # for better result runinig my model with 5 different fold  
 cross_val_score(model_with_rating, x_tf_idf, y_raiting, scoring="accuracy", cv=5).mean()
 
+# model_with_polarity give better result then model_with_rating with 0.77 accuracy 
 
+# evaluate my model trained with raiting
+
+test1 = pd.Series("this product is great")
+test2 = pd.Series("look at that shit very bad")
+test3 = pd.Series("it's normal")
+
+res_test1 = CountVectorizer().fit(x).transform(test1)
+res_test2 = CountVectorizer().fit(x).transform(test2)
+res_test3 = CountVectorizer().fit(x).transform(test3)
+
+print("sentence 1 : ",model_with_rating.predict(res_test1))
+print("sentence 2 : ",model_with_rating.predict(res_test2))
+print("sentence 3 : ",model_with_rating.predict(res_test3))
+
+
+# Random Forests
+# training my model with randomForest
+rf_model = RandomForestClassifier().fit(x_tf_idf, y_polarity )
+cross_val_score(rf_model, x_tf_idf , y_polarity , cv=5, n_jobs=-1).mean()
