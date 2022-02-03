@@ -237,4 +237,15 @@ print("sentence 2 : ",clf.predict(res_test2.toarray()))
 print("sentence 3 : ",clf.predict(res_test3.toarray()))
 
 
+# BaggingClassifier
 
+
+from sklearn.svm import SVC
+from sklearn.ensemble import BaggingClassifier 
+
+clf = BaggingClassifier(base_estimator=SVC(), n_estimators=10, random_state=0).fit(x_tf_idf, y_polarity)
+
+
+print("sentence 1 : ",clf.predict(res_test1.toarray()))
+print("sentence 2 : ",clf.predict(res_test2.toarray()))
+print("sentence 3 : ",clf.predict(res_test3.toarray()))
