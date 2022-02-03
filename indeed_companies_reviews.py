@@ -193,6 +193,7 @@ cross_val_score(rf_model, x_tf_idf , y_polarity , cv=5, n_jobs=-1).mean()
 
 
 # Naive Bayes classifier
+# it will give a bad result
 
 # splitting X and y into training and testing sets
 from sklearn.model_selection import train_test_split
