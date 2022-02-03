@@ -209,3 +209,32 @@ y_pred = gnb.predict(X_test.toarray())
 # comparing actual response values (y_test) with predicted response values (y_pred)
 from sklearn import metrics
 print("Gaussian Naive Bayes model accuracy :", metrics.accuracy_score(y_test, y_pred)*100)
+
+
+# SGDClassifier
+
+import numpy as np
+from sklearn.linear_model import SGDClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import make_pipeline
+
+# Always scale the input. The most convenient way is to use a pipeline.
+clf = make_pipeline(StandardScaler(), SGDClassifier(max_iter=1000, tol=1e-3))
+clf.fit(x_tf_idf.toarray(), y_polarity)
+
+# evaluate my model trained with raiting
+
+test1 = pd.Series("this product is great")
+test2 = pd.Series("look at that shit very bad")
+test3 = pd.Series("it's normal")
+
+res_test1 = CountVectorizer().fit(x).transform(test1)
+res_test2 = CountVectorizer().fit(x).transform(test2)
+res_test3 = CountVectorizer().fit(x).transform(test3)
+
+print("sentence 1 : ",clf.predict(res_test1.toarray()))
+print("sentence 2 : ",clf.predict(res_test2.toarray()))
+print("sentence 3 : ",clf.predict(res_test3.toarray()))
+
+
+
