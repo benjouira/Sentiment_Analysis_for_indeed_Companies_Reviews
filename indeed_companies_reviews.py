@@ -195,21 +195,6 @@ cross_val_score(rf_model, x_tf_idf , y_polarity , cv=5, n_jobs=-1).mean()
 # Naive Bayes classifier
 # it will give a bad result
 
-# splitting X and y into training and testing sets
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(x_tf_idf, y_polarity, test_size=0.3, random_state=1)
-
-from sklearn.naive_bayes import GaussianNB
-# training the model on training set
-gnb = GaussianNB()
-gnb.fit(X_train.toarray(), y_train)
-
-# making predictions on the testing set
-y_pred = gnb.predict(X_test.toarray())
- 
-# comparing actual response values (y_test) with predicted response values (y_pred)
-from sklearn import metrics
-print("Gaussian Naive Bayes model accuracy :", metrics.accuracy_score(y_test, y_pred)*100)
 
 
 # SGDClassifier
