@@ -248,6 +248,15 @@ print("Gaussian Naive Bayes model accuracy :", metrics.accuracy_score(y_test, y_
 # clf = BaggingClassifier(base_estimator=SVC(), n_estimators=10, random_state=0).fit(x_tf_idf, y_polarity)
 
 
+# # evaluate my model trained with raiting
+
+# test1 = pd.Series("this product is great")
+# test2 = pd.Series("look at that shit very bad")
+# test3 = pd.Series("it's normal")
+
+# res_test1 = CountVectorizer().fit(x).transform(test1)
+# res_test2 = CountVectorizer().fit(x).transform(test2)
+# res_test3 = CountVectorizer().fit(x).transform(test3)
 # print("sentence 1 : ",clf.predict(res_test1.toarray()))
 # print("sentence 2 : ",clf.predict(res_test2.toarray()))
 # print("sentence 3 : ",clf.predict(res_test3.toarray()))
