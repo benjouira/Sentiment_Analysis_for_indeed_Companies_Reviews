@@ -211,9 +211,3 @@ y_pred = gnb.predict(X_test.toarray())
 from sklearn import metrics
 print("Gaussian Naive Bayes model accuracy :", metrics.accuracy_score(y_test, y_pred)*100)
 
-
-# SGDClassifier
-# it will take a lot of time 
-
-
-
