@@ -211,3 +211,7 @@ y_pred = gnb.predict(X_test.toarray())
 from sklearn import metrics
 print("Gaussian Naive Bayes model accuracy :", metrics.accuracy_score(y_test, y_pred)*100)
 
+
+#  save the model to disk
+filename = '../app_web_flask/SA_model.sav'
+pickle.dump(model_with_polarity, open(filename, 'wb'))
